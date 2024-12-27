@@ -1,0 +1,14 @@
+@use 'sass:string';
+@use '../../config/config' as config;
+
+$position-utilities: (
+    position: config.$position
+);
+
+@each $property, $values in $position-utilities {
+    @each $value in $values {
+        .#{string.unquote($property)}-#{$value} {
+            #{$property}: $value;
+        }
+    }
+}

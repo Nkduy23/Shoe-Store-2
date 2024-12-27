@@ -1,0 +1,13 @@
+@use 'sass:string';
+@use '../../config/config' as config;
+$visibility-utilities: (
+    visibility: config.$visibility
+);
+
+@each $property, $values in $visibility-utilities {
+    @each $value in $values {
+        .#{string.unquote($property)}-#{$value} {
+          #{$property}: $value;
+        }
+      }
+}

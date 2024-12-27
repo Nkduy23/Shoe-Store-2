@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi Dropdown Menu</title>
+    <style>
+      /* CSS */
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .navbar {
+        background-color: #333;
+        padding: 10px;
+      }
+
+      .navbar__list {
+        list-style: none;
+        display: flex;
+        padding: 0;
+        margin: 0;
+      }
+
+      .navbar__item {
+        position: relative;
+        margin-right: 20px;
+      }
+
+      .navbar__link {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+      }
+
+      .navbar__dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #444;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        top: 100%;
+        left: 0;
+        z-index: 1;
+      }
+
+      .navbar__dropdown-item a {
+        padding: 10px;
+        color: white;
+        text-decoration: none;
+        display: block;
+      }
+
+      .navbar__dropdown-item a:hover {
+        background-color: #555;
+      }
+
+      .navbar__item:hover .navbar__dropdown-menu,
+      .navbar__dropdown-menu:hover {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul class="navbar__list">
+        <!-- Menu Item 1 -->
+        <li class="navbar__item dropdown" role="menuitem" aria-haspopup="true">
+          <a href="#" class="navbar__link dropdown-toggle" aria-expanded="false"> Giày Nam </a>
+          <ul class="navbar__dropdown-menu" role="menu">
+            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Thể Thao</a></li>
+            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Đi Chơi</a></li>
+            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Something else here</a></li>
+          </ul>
+        </li>
+
+        <!-- Menu Item 2 -->
+        <li class="navbar__item dropdown" role="menuitem" aria-haspopup="true">
+          <a href="#" class="navbar__link dropdown-toggle" aria-expanded="false"> Giày Nữ </a>
+          <ul class="navbar__dropdown-menu" role="menu">
+            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Công Sở</a></li>
+            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Dạo Phố</a></li>
+            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Thời Trang</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <script>
+      const dropdowns = document.querySelectorAll(".navbar__item");
+
+      dropdowns.forEach((dropdown) => {
+        const link = dropdown.querySelector(".navbar__link");
+
+        // Khi hover vào phần tử cha hoặc menu con
+        dropdown.addEventListener("mouseenter", () => {
+          link.setAttribute("aria-expanded", "true");
+        });
+
+        dropdown.addEventListener("mouseleave", () => {
+          link.setAttribute("aria-expanded", "false");
+        });
+
+        // Đảm bảo khi hover vào menu con thì vẫn giữ aria-expanded = true
+        const dropdownMenu = dropdown.querySelector(".navbar__dropdown-menu");
+        dropdownMenu.addEventListener("mouseenter", () => {
+          link.setAttribute("aria-expanded", "true");
+        });
+
+        dropdownMenu.addEventListener("mouseleave", () => {
+          link.setAttribute("aria-expanded", "false");
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+@use 'sass:string';
+@use '../../config/config' as config;
+
+$z-index-utilities: (
+    z-index: config.$z-index
+);
+
+@each $property, $values in $z-index-utilities {
+    @each $value in $values {
+        .#{string.unquote($property)}-#{$value} {
+          #{$property}: $value;
+        }
+      }
+}

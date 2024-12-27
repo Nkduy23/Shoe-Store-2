@@ -1,0 +1,26 @@
+{
+  "name": "shoe-store-2",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js",
+    "sass:watch": "sass --watch src/resources/sass:src/public/css --no-source-map"
+  },
+  "keywords": [],
+  "author": "Nguyen Khanh Duy",
+  "license": "ISC",
+  "description": "Cửa Hàng Giày Dép",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-handlebars": "^8.0.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "connect-browser-sync": "^2.1.0",
+    "nodemon": "^3.1.9",
+    "sass": "^1.83.0"
+  }
+}

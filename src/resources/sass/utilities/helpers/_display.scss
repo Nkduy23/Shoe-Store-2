@@ -1,0 +1,18 @@
+@use "../../config/config" as config;
+
+$display-utilities: (
+  display: config.$display,
+);
+
+@each $property, $values in $display-utilities {
+  //  $property là key → 'display'
+  // $values là value → (none, block, inline-block, flex)
+  @each $value in $values {
+    // Chỉ cần thay thế 'display-' bằng 'd'
+    $class-name: "d" + str-slice($property, 9); // Bỏ 'display-' từ tên class
+
+    .#{$class-name}-#{$value} {
+      #{$property}: $value;
+    }
+  }
+}

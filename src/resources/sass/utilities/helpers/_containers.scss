@@ -1,0 +1,32 @@
+@use "sass:list"; // Import list module
+@use 'sass:map'; // Correct import
+@use '../../config/config' as config;
+.container,
+.container-fluid,
+.container-xxl,
+.container-xl,
+.container-lg,
+.container-md,
+.container-sm {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@each $name, $breakpoint in config.$grid-breakpoints {
+  $selectors: (); // Khởi tạo danh sách rỗng
+
+  @each $key, $value in config.$grid-breakpoints {
+    @if list.index(map.keys(config.$grid-breakpoints), $key) <= list.index(map.keys(config.$grid-breakpoints), $name) {
+      $selectors: list.append($selectors, ".container-#{$key}", comma);
+    }
+  }
+
+  $selectors: list.append($selectors, ".container", comma); // Thêm .container vào cuối
+
+  @media (min-width: $breakpoint) {
+    #{$selectors} {
+      max-width: map.get(config.$container-max-widths, $name); // Đã cập nhật để sử dụng map.get()
+    }
+  }
+}

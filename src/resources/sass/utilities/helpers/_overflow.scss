@@ -1,0 +1,14 @@
+@use 'sass:string';
+@use '../../config/config' as config;
+
+$overflow-utilities: (
+    overflow: config.$overflow
+);
+
+@each $property, $values in $overflow-utilities {
+    @each $value in $values {
+        .#{string.unquote($property)}-#{$value} {
+            #{$property}: $value;
+        }
+    }
+}

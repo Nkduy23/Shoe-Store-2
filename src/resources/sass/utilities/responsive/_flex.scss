@@ -1,0 +1,21 @@
+@use 'sass:string';
+@use "../../config/config" as *;
+$flex-utilities: (
+  flex-direction: $flex-directions,
+  flex-wrap: $flex-wrap,
+  justify-content: $justify-content,
+  align-items: $align-items,
+  align-content: $align-content,
+  align-self: $align-self,
+  flex-grow: $flex-grow,
+  flex-shrink: $flex-shrink,
+  flex-basis: $flex-basis,
+);
+// Tuy nhiên, trong các trường hợp cấu hình phức tạp hoặc dữ liệu có thể bị trích xuất từ JSON/XML, thêm string.unquote() sẽ giúp tránh lỗi không mong muốn.
+@each $property, $values in $flex-utilities {
+  @each $value in $values {
+    .#{string.unquote($property)}-#{$value} {
+      #{$property}: $value;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@use "sass:string";
+@use '../../config/config' as config;
+
+$font-weight-utilities: (
+  font-weight: config.$font-weight,
+);
+
+@each $property, $values in $font-weight-utilities {
+  @each $value in $values {
+    .#{string.unquote($property)}-#{$value} {
+      #{$property}: $value;
+    }
+  }
+}
