@@ -3,115 +3,203 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Multi Dropdown Menu</title>
+    <title>Swipe Slider</title>
     <style>
-      /* CSS */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       body {
         font-family: Arial, sans-serif;
-      }
-
-      .navbar {
-        background-color: #333;
-        padding: 10px;
-      }
-
-      .navbar__list {
-        list-style: none;
+        background-color: #f4f4f4;
         display: flex;
-        padding: 0;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
         margin: 0;
       }
 
-      .navbar__item {
+      .slider-container {
+        width: 100%;
+        max-width: 600px;
         position: relative;
-        margin-right: 20px;
+        overflow: hidden;
       }
 
-      .navbar__link {
-        color: white;
-        text-decoration: none;
-        padding: 10px;
-        display: block;
+      .slider {
+        display: flex;
+        transition: transform 0.5s ease;
       }
 
-      .navbar__dropdown-menu {
-        display: none;
+      .slide {
+        min-width: 100%;
+        height: auto;
+        background-color: #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+        color: #333;
+      }
+
+      .prev,
+      .next {
         position: absolute;
-        background-color: #444;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        top: 100%;
-        left: 0;
-        z-index: 1;
-      }
-
-      .navbar__dropdown-item a {
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border: none;
         padding: 10px;
-        color: white;
-        text-decoration: none;
-        display: block;
+        font-size: 1.5em;
+        cursor: pointer;
+        z-index: 10;
       }
 
-      .navbar__dropdown-item a:hover {
-        background-color: #555;
+      .prev {
+        left: 10px;
       }
 
-      .navbar__item:hover .navbar__dropdown-menu,
-      .navbar__dropdown-menu:hover {
-        display: block;
+      .next {
+        right: 10px;
       }
     </style>
   </head>
   <body>
-    <nav class="navbar">
-      <ul class="navbar__list">
-        <!-- Menu Item 1 -->
-        <li class="navbar__item dropdown" role="menuitem" aria-haspopup="true">
-          <a href="#" class="navbar__link dropdown-toggle" aria-expanded="false"> Giày Nam </a>
-          <ul class="navbar__dropdown-menu" role="menu">
-            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Thể Thao</a></li>
-            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Đi Chơi</a></li>
-            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Something else here</a></li>
-          </ul>
-        </li>
+    <div class="slider-container">
+      <div class="slider">
+        <img class="slide" src="slider-mb-1.jpg" alt="" />
+        <img class="slide" src="slider-mb-2.jpg" alt="" />
+        <img class="slide" src="slider-mb-3.jpg" alt="" />
+      </div>
+      <button class="prev">❮</button>
+      <button class="next">❯</button>
+    </div>
 
-        <!-- Menu Item 2 -->
-        <li class="navbar__item dropdown" role="menuitem" aria-haspopup="true">
-          <a href="#" class="navbar__link dropdown-toggle" aria-expanded="false"> Giày Nữ </a>
-          <ul class="navbar__dropdown-menu" role="menu">
-            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Công Sở</a></li>
-            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Dạo Phố</a></li>
-            <li class="navbar__dropdown-item" role="menuitem"><a href="#">Thời Trang</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
     <script>
-      const dropdowns = document.querySelectorAll(".navbar__item");
+      const slider = document.querySelector(".slider");
+      const slides = document.querySelectorAll(".slide");
+      const prevBtn = document.querySelector(".prev");
+      const nextBtn = document.querySelector(".next");
 
-      dropdowns.forEach((dropdown) => {
-        const link = dropdown.querySelector(".navbar__link");
+      let startX = 0;
+      let endX = 0;
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      let autoPlayInterval;
 
-        // Khi hover vào phần tử cha hoặc menu con
-        dropdown.addEventListener("mouseenter", () => {
-          link.setAttribute("aria-expanded", "true");
-        });
+      // Start autoplay
+      function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 3000);
+      }
 
-        dropdown.addEventListener("mouseleave", () => {
-          link.setAttribute("aria-expanded", "false");
-        });
+      // Stop autoplay
+      function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+      }
 
-        // Đảm bảo khi hover vào menu con thì vẫn giữ aria-expanded = true
-        const dropdownMenu = dropdown.querySelector(".navbar__dropdown-menu");
-        dropdownMenu.addEventListener("mouseenter", () => {
-          link.setAttribute("aria-expanded", "true");
-        });
+      // Go to the previous slide
+      function prevSlide() {
+        stopAutoPlay();
+        if (currentIndex === 0) {
+          slider.style.transition = "none";
+          currentIndex = totalSlides - 1;
+        } else {
+          updateTransition();
+          currentIndex--;
+        }
+        updateSlider();
+        startAutoPlay();
+      }
 
-        dropdownMenu.addEventListener("mouseleave", () => {
-          link.setAttribute("aria-expanded", "false");
-        });
+      // Go to the next slide
+      function nextSlide() {
+        stopAutoPlay();
+        if (currentIndex === totalSlides - 1) {
+          slider.style.transition = "none";
+          currentIndex = 0;
+        } else {
+          updateTransition();
+          currentIndex++;
+        }
+        updateSlider();
+        startAutoPlay();
+      }
+
+      // Update transition effect
+      function updateTransition() {
+        slider.style.transition = "transform 0.5s ease-in-out";
+      }
+
+      // Update slider position
+      function updateSlider() {
+        const offset = -currentIndex * 100;
+        slider.style.transform = `translateX(${offset}%)`;
+      }
+
+      // Prevent dragging images
+      slides.forEach((image) => {
+        image.addEventListener("dragstart", (e) => e.preventDefault());
       });
+
+      // Handle touch start
+      function handleTouchStart(e) {
+        startX = e.changedTouches[0].screenX;
+      }
+
+      // Handle touch end
+      function handleTouchEnd(e) {
+        endX = e.changedTouches[0].screenX;
+        const swipeDistance = startX - endX;
+
+        if (swipeDistance > 50) {
+          stopAutoPlay();
+          nextSlide(); // Swipe left
+        } else if (swipeDistance < -50) {
+          stopAutoPlay();
+          prevSlide(); // Swipe right
+        }
+      }
+
+      let isMouseDown = false;
+      let mouseStartX = 0;
+
+      function handleMouseDown(e) {
+        isMouseDown = true;
+        mouseStartX = e.clientX;
+        stopAutoPlay();
+      }
+
+      function handleMouseUp(e) {
+        if (isMouseDown) {
+          const mouseEndX = e.clientX;
+          if (mouseStartX > mouseEndX + 50) {
+            stopAutoPlay();
+            nextSlide();
+          } else if (mouseStartX < mouseEndX - 50) {
+            stopAutoPlay();
+            prevSlide();
+          }
+          isMouseDown = false;
+          // startAutoPlay();
+        }
+      }
+
+      // Event listeners
+      prevBtn.addEventListener("click", prevSlide);
+      nextBtn.addEventListener("click", nextSlide);
+      slider.addEventListener("mousedown", handleMouseDown);
+      slider.addEventListener("mouseup", handleMouseUp);
+      slider.addEventListener("touchstart", handleTouchStart);
+      slider.addEventListener("touchend", handleTouchEnd);
+      // Auto-play restart on mouse up or touch end
+      // slider.addEventListener("mouseup", startAutoPlay);
+      // slider.addEventListener("touchend", startAutoPlay);
+
+      // Initialize autoplay when DOM is ready
+      // document.addEventListener("DOMContentLoaded", startAutoPlay);
     </script>
   </body>
 </html>

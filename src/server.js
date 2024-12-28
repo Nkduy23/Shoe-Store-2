@@ -5,49 +5,55 @@ const morgan = require('morgan');
 const route = require('./routes');
 const browserSync = require('browser-sync');
 const connectBrowserSync = require('connect-browser-sync');
-const app = express();
+const dotenv = require('dotenv');
 
-// Kết nối với BrowserSync
+// Initialize environment variables
+dotenv.config();
+
+const app = express();
 const bs = browserSync.create();
+
+// Middleware for BrowserSync integration
 app.use(connectBrowserSync(bs));
 
-app.engine(
-    'hbs',
-    engine({
-        extname: 'hbs',
-        handlebars: require('handlebars'),
-        allowProtoPropertiesByDefault: true,
-        defaultLayout: 'main',
-        layoutsDir: path.join(__dirname, 'resources', 'views', 'layouts'),
-        partialsDir: path.join(__dirname, 'resources', 'views', 'partials'),
-    })
-);
-
+// Setup Handlebars template engine
+app.engine('hbs', engine({
+    extname: 'hbs',
+    defaultLayout: 'main',
+    layoutsDir: path.join(__dirname, 'resources', 'views', 'layouts'),
+    partialsDir: path.join(__dirname, 'resources', 'views', 'partials'),
+}));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources', 'views'));
-app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
+
+// Middleware
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
+app.use(morgan('dev')); // Logging requests
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
+app.use(express.json()); // Parse JSON data
+
+// Error Handling Middleware
 app.use((err, req, res, next) => {
-    if (app.get('env') === 'development') {
-        return res.status(500).send(`<pre>${err.stack}</pre>`);
-    }
-    res.status(500).send('Something went wrong');
+    const env = app.get('env');
+    const statusCode = 500;
+    const errorMessage = env === 'development' ? `<pre>${err.stack}</pre>` : 'Something went wrong';
+    res.status(statusCode).send(errorMessage);
 });
 
-
+// Routes
 route(app);
 
-require('dotenv').config();
-const port = process.env.PORT || 3000; // Server chạy trên cổng 3000
+// Start server
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
+
+    // BrowserSync configuration
     bs.init({
         proxy: `http://localhost:${port}`,
-        files: ['**/*.*'], // Theo dõi tất cả file thay đổi
-        port: 3001, // Chạy BrowserSync trên cổng 3001
-        open: false, // Không tự động mở tab trình duyệt
-        reloadOnRestart: true, // Reload lại nếu khởi động lại server
-    })
-})
+        files: ['**/*.*'],
+        port: 3001,
+        open: false,
+        reloadOnRestart: true,
+    });
+});

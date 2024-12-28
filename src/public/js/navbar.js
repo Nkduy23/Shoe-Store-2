@@ -8,7 +8,6 @@ const navSearchIcon = document.querySelector(".navbar__search-button--mobile");
 const navSearch = document.querySelector(".navbar__search");
 const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
 const dropdownMenus = document.querySelectorAll(".navbar__dropdown-menu");
-const dropdowns = document.querySelectorAll(".navbar__item");
 
 // Toggle Navbar
 function toggleNavbar() {
@@ -44,15 +43,22 @@ function closeSearch() {
 
 // Toggle Dropdown Menu
 function toggleDropdown(e) {
-  const allDropdownMenus = document.querySelectorAll(".navbar__dropdown-menu");
-  const allDropdownLinks = document.querySelectorAll(".navbar__link");
+  const dropdownToggle = e.target; // Phần tử được click
+  const dropdownMenu = dropdownToggle.nextElementSibling; // Menu dropdown kế tiếp
 
-  allDropdownMenus.forEach((menu) => menu.classList.remove("active"));
-  allDropdownLinks.forEach((link) => link.setAttribute("aria-expanded", "false"));
+  const isExpanded = dropdownToggle.getAttribute("aria-expanded") === "true";
 
-  const dropdownMenu = e.target.nextElementSibling;
-  dropdownMenu.classList.add("active");
-  e.target.setAttribute("aria-expanded", "true");
+  // Đóng tất cả dropdowns khác
+  dropdownToggles.forEach((toggle) => {
+    if (toggle !== dropdownToggle) {
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.nextElementSibling.classList.remove("active");
+    }
+  });
+
+  // Toggle trạng thái dropdown hiện tại
+  dropdownToggle.setAttribute("aria-expanded", !isExpanded);
+  dropdownMenu.classList.toggle("active", !isExpanded);
 }
 
 // Event Listeners
@@ -60,32 +66,29 @@ toggler.addEventListener("click", (e) => {
   e.stopPropagation();
   toggleNavbar();
 });
+
 navbarClose.addEventListener("click", closeNavbar);
 navbarSearchClose.addEventListener("click", closeSearch);
 navSearchIcon.addEventListener("click", (e) => {
   e.stopPropagation();
   toggleSearch();
 });
+
+// Lắng nghe sự kiện click cho dropdown và loại bỏ sự kiện cũ
 dropdownToggles.forEach((toggle) => {
-  toggle.addEventListener("click", toggleDropdown);
+  toggle.removeEventListener("click", toggleDropdown); // Xóa sự kiện trùng lặp
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleDropdown(e);
+  });
 });
 
-// Close navbar and dropdowns when clicking outside
+// Đóng navbar, dropdowns khi click ngoài
 document.addEventListener("click", (e) => {
   if (!navbarBody.contains(e.target)) closeNavbar();
   if (!navSearch.contains(e.target)) closeSearch();
+  if (!e.target.closest(".navbar__item")) {
+    dropdownMenus.forEach((menu) => menu.classList.remove("active"));
+    dropdownToggles.forEach((toggle) => toggle.setAttribute("aria-expanded", "false"));
+  }
 });
-
-// Dropdown hover handling
-dropdowns.forEach((dropdown) => {
-  const link = dropdown.querySelector(".navbar__link");
-  const dropdownMenu = dropdown.querySelector(".navbar__dropdown-menu");
-
-  // Khi hover vào phần tử cha hoặc menu con
-  dropdown.addEventListener("mouseenter", () => link.setAttribute("aria-expanded", "true"));
-  dropdown.addEventListener("mouseleave", () => link.setAttribute("aria-expanded", "false"));
-  dropdownMenu.addEventListener("mouseenter", () => link.setAttribute("aria-expanded", "true"));
-  dropdownMenu.addEventListener("mouseleave", () => link.setAttribute("aria-expanded", "false"));
-});
-
-// Bấm nhanh quá thì nó đổi sai cái icon, check lại sau

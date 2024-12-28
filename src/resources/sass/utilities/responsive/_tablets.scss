@@ -1,29 +1,31 @@
-@use "sass:map"; // Correct import
+@use "sass:map";
 @use "../../config/config" as config;
 
 $breakpoint-lg: map.get(config.$grid-breakpoints, lg);
 
-// Gộp tất cả các thuộc tính vào một media query duy nhất
 @media (max-width: $breakpoint-lg) {
   header {
     .navbar {
       padding: 0 1rem;
+
       &__toggler {
         display: block;
       }
+
       &__header {
-        display: block;
-        position: relative;
         display: flex;
         justify-content: center;
         padding: 10px;
-        border-bottom: 1px rgb(223, 220, 220) solid;
+        border-bottom: 1px solid rgb(223, 220, 220);
+        position: relative;
       }
+
       &__close {
         position: absolute;
         right: 10px;
         font-size: 2rem;
       }
+
       &__body {
         visibility: hidden;
         position: fixed;
@@ -34,48 +36,52 @@ $breakpoint-lg: map.get(config.$grid-breakpoints, lg);
         background-color: #fff;
         transition: left 0.3s ease-in-out;
         z-index: 1050;
-        box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
-        -webkit-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
-        -moz-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
       }
+
       &__body.show {
         left: 0;
         visibility: visible;
         overflow-y: scroll;
       }
+
       &__item {
         padding: 0 1.5rem;
         position: relative;
+
+        &:last-child {
+          padding-bottom: 100px;
+        }
+
+        &::after,
+        &:hover::after {
+          content: "";
+        }
+
+        > .navbar__link[aria-expanded="false"]::after {
+          content: "\f077";
+          font-family: "FontAwesome";
+          position: absolute;
+          font-size: 8px;
+          color: #ccc;
+          right: 10px;
+          top: 10px;
+        }
+
+        > .navbar__link[aria-expanded="true"]::after {
+          content: "\f078";
+          font-family: "FontAwesome";
+          position: absolute;
+          right: 10px;
+          top: 10px;
+        }
       }
-      &__item:last-child {
-        padding-bottom: 100px;
-      }
-      &__item::after {
-        content: "";
-      }
-      &__item:hover::after {
-        content: "";
-      }
-      &__item > .navbar__link[aria-expanded="false"]::after {
-        content: "\f077";
-        font-family: "FontAwesome";
-        position: absolute;
-        font-size: 8px;
-        color: #ccc;
-        right: 10px;
-        top: 10px;
-      }
-      &__item > .navbar__link[aria-expanded="true"]::after {
-        content: "\f078";
-        font-family: "FontAwesome";
-        position: absolute;
-        right: 10px;
-        top: 10px;
-      }
+
       &__link {
         display: block;
         margin: 0.6rem 0;
       }
+
       &__dropdown-menu {
         position: static;
         box-shadow: none;
@@ -83,6 +89,7 @@ $breakpoint-lg: map.get(config.$grid-breakpoints, lg);
         visibility: unset;
         background-color: #faf8f8;
         border: none;
+
         &.active {
           display: block;
           transform: none;

@@ -16,6 +16,14 @@
     </header>
 
     <main>
+        {{#if showSlider}}
+        {{> slider }}
+        {{/if}}
+
+        {{#if showFlashSale}}
+        {{> flash-sale }}
+        {{/if}}
+
         {{{body}}}
     </main>
 
@@ -23,6 +31,8 @@
         {{> footer}}
     </footer>
     <script src="/js/navbar.js" defer></script>
+    <script src="/js/slider.js" defer></script>
+    <script src="/js/flash-sale.js" defer></script>
     
 </body>
 </html>

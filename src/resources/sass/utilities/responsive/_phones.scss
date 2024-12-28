@@ -2,20 +2,24 @@
 @use "../../config/config" as config;
 
 $breakpoint-md: map.get(config.$grid-breakpoints, md);
+$search-background: #fff;
+$search-input-bg: #f9f6f6;
+$search-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
 
-// Gộp tất cả các thuộc tính vào một media query duy nhất
 @media (max-width: $breakpoint-md) {
   header {
     .navbar {
-      &__search-button--mobile {
-        display: block;
-      }
+      &__search-button--mobile,
       &__search-close {
         display: block;
+      }
+
+      &__search-close {
         position: absolute;
         right: 0;
         font-size: 2rem;
       }
+
       &__search {
         visibility: hidden;
         position: fixed;
@@ -23,29 +27,31 @@ $breakpoint-md: map.get(config.$grid-breakpoints, md);
         right: -100%;
         width: 80%;
         height: 100%;
-        background-color: #fff;
+        background-color: $search-background;
         transition: right 0.3s ease-in-out;
         z-index: 1050;
-        box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
-        -webkit-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
-        -moz-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.05);
+        box-shadow: $search-box-shadow;
         display: flex;
         justify-content: center;
         align-items: flex-start;
         padding-top: 2rem;
+
+        &.show {
+          right: 0;
+          visibility: visible;
+          overflow-y: scroll;
+        }
       }
-      &__search.show {
-        right: 0;
-        visibility: visible;
-        overflow-y: scroll;
-      }
+
       &__search-form {
         width: 70%;
       }
+
       &__search-input {
-        background-color: #f9f6f6;
+        background-color: $search-input-bg;
         border: none;
       }
+
       &__footer {
         gap: 10px;
       }

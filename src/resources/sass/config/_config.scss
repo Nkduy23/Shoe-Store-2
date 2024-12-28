@@ -19,19 +19,14 @@ $container-max-widths: (
 $flex-directions: (
   row,
   column,
-  row-reverse,
-  column-reverse
 );
 
 $flex-wrap: (
   nowrap,
   wrap,
-  wrap-reverse
 );
 
 $justify-content: (
-  flex-start,
-  flex-end,
   center,
   space-between,
   space-around,
@@ -39,20 +34,14 @@ $justify-content: (
 );
 
 $align-items: (
-  flex-start,
-  flex-end,
   center,
-  baseline,
-  stretch
 );
 
 $align-content: (
-  flex-start,
-  flex-end,
   center,
   space-between,
   space-around,
-  stretch
+  space-evenly,
 );
 
 $align-self: (
@@ -127,16 +116,4 @@ $z-index: (
   7,
   8,
   9
-);
-
-$font-weight: (
-  100,
-  200,
-  300,
-  400,
-  500,
-  600,
-  700,
-  800,
-  900
 );
