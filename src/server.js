@@ -4,7 +4,7 @@ const middlewares = require("./middlewares");
 const route = require("./routes");
 const browserSync = require("browser-sync");
 const { connectDB } = require("./app/database/db");
-const sessionMiddleware = require("./app/middleware/sessionMiddleware"); // Import middleware
+const sessionMiddleware = require("./app/middleware/sessionMiddleware");
 require("dotenv").config();
 
 const app = express();

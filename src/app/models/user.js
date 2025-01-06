@@ -7,16 +7,19 @@ const userSchema = new mongoose.Schema({
   role: { type: String, default: "user" },
 });
 
-// Không cần mã hóa lại mật khẩu ở đây
+// Middleware để mã hóa mật khẩu trước khi lưu vào database
+userSchema.pre('save', async function(next) {
+  if (this.isModified('password')) {
+    this.password = await bcrypt.hash(this.password, 10); // Mã hóa mật khẩu
+  }
+  next();
+});
 
-// So sánh mật khẩu khi người dùng đăng nhập
+// Phương thức để so sánh mật khẩu khi đăng nhập
 userSchema.methods.comparePassword = async function (password) {
-  console.log("Mật khẩu người dùng nhập vào:", password);  // Log mật khẩu người dùng nhập khi đăng nhập
-  console.log("Mật khẩu đã lưu trong cơ sở dữ liệu:", this.password);  // Log mật khẩu đã lưu (đã mã hóa)
-
-  return bcrypt.compare(password, this.password);  // So sánh mật khẩu đã mã hóa với mật khẩu nhập vào
+  return bcrypt.compare(password, this.password);  // So sánh mật khẩu
 };
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = User; // Đảm bảo chỉ export model User
+module.exports = User; 

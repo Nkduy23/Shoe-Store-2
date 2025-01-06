@@ -2,6 +2,7 @@ const User = require('../models/user');  // Import model User
 const bcrypt = require('bcryptjs');
 
 class RegisterController {
+  // Hiển thị trang đăng ký
   registerPage(req, res) {
     res.render('register', { pageClass: 'register-page' });
   }
@@ -34,10 +35,12 @@ class RegisterController {
       await newUser.save();
       
       // Redirect tới trang đăng nhập
+      req.flash('success', 'Đăng ký thành công. Bạn có thể đăng nhập ngay.');
       res.redirect('/login');
     } catch (err) {
       console.error("Lỗi đăng ký:", err);
-      res.status(500).send("Lỗi đăng ký");
+      req.flash('error', 'Đã có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại.');
+      res.redirect('/register');
     }
   }
 }

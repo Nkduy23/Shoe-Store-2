@@ -1,0 +1,36 @@
+<!-- showCart.hbs -->
+<h1>Giỏ Hàng</h1>
+
+{{#if cart.length}}
+    <table>
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each cart}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.price}}</td>
+                    <td>
+                        <form action="/cart/update/{{this._id}}" method="POST">
+                            <input type="number" name="quantity" value="{{this.quantity}}" min="1" />
+                            <button type="submit">Cập nhật</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a href="/cart/remove/{{this._id}}">Xóa</a>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <p>Giỏ hàng của bạn đang trống.</p>
+{{/if}}
+
+<a href="/products">Quay lại danh sách sản phẩm</a>
