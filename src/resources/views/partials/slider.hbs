@@ -1,11 +1,50 @@
 <!-- slider -->
-<div class="slider-container">
-  <button class="slider__prev">❮</button>
-  <div class="slider">
-    <img class="slider__image" src="/img/slider-pc-1.jpg" data-large="/img/slider-pc-1.jpg" data-small="/img/slider-mb-1.jpg" alt="Slider Image 1" draggable="false" />
-    <img class="slider__image" src="/img/slider-pc-2.jpg" data-large="/img/slider-pc-2.jpg" data-small="/img/slider-mb-2.jpg" alt="Slider Image 2" draggable="false" />
-    <img class="slider__image" src="/img/slider-pc-3.jpg" data-large="/img/slider-pc-3.jpg" data-small="/img/slider-mb-3.jpg" alt="Slider Image 3" draggable="false" />
-    <img class="slider__image" src="/img/slider-pc-4.jpg" data-large="/img/slider-pc-4.jpg" data-small="/img/slider-mb-4.jpg" alt="Slider Image 4" draggable="false" />
+<div class="container-fluid position-relative overflow-hidden" aria-label="Image Slider">
+  <!-- Nút chuyển slide trước -->
+  <button class="slider__prev z-index-1 position-absolute" aria-label="Previous Slide">
+    ❮
+  </button>
+  <!-- Slider -->
+  <div class="slider d-flex" role="list">
+    <img
+      class="slider__image d-block"
+      src="/img/slider-pc-1.jpg"
+      data-large="/img/slider-pc-1.jpg"
+      data-small="/img/slider-mb-1.jpg"
+      alt="Slider Image 1 - Description"
+      draggable="false"
+      role="listitem"
+    />
+    <img
+      class="slider__image d-block"
+      src="/img/slider-pc-2.jpg"
+      data-large="/img/slider-pc-2.jpg"
+      data-small="/img/slider-mb-2.jpg"
+      alt="Slider Image 2 - Description"
+      draggable="false"
+      role="listitem"
+    />
+    <img
+      class="slider__image d-block"
+      src="/img/slider-pc-3.jpg"
+      data-large="/img/slider-pc-3.jpg"
+      data-small="/img/slider-mb-3.jpg"
+      alt="Slider Image 3 - Description"
+      draggable="false"
+      role="listitem"
+    />
+    <img
+      class="slider__image d-block"
+      src="/img/slider-pc-4.jpg"
+      data-large="/img/slider-pc-4.jpg"
+      data-small="/img/slider-mb-4.jpg"
+      alt="Slider Image 4 - Description"
+      draggable="false"
+      role="listitem"
+    />
   </div>
-  <button class="slider__next">❯</button>
+  <!-- Nút chuyển slide tiếp theo -->
+  <button class="slider__next z-index-1 position-absolute" aria-label="Next Slide">
+    ❯
+  </button>
 </div>

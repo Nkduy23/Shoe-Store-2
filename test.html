@@ -3,203 +3,204 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Swipe Slider</title>
+    <title>Document</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      /* Tổng quan về layout */
+      .home__flash-sale,
+      .home__regular-products {
+        margin: 2rem 0;
       }
 
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-      }
-
-      .slider-container {
-        width: 100%;
-        max-width: 600px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .slider {
-        display: flex;
-        transition: transform 0.5s ease;
-      }
-
-      .slide {
-        min-width: 100%;
-        height: auto;
-        background-color: #ddd;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 2em;
+      .home__section-title {
+        text-align: center;
+        font-size: 2rem;
         color: #333;
+        margin-bottom: 1.5rem;
       }
 
-      .prev,
-      .next {
+      /* Định dạng cho danh sách sản phẩm */
+      .product-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+      }
+
+      .product-card {
+        width: 250px;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .product-card__image-wrapper {
+        position: relative;
+      }
+
+      .product-card__image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: opacity 0.3s ease;
+      }
+
+      .product-card__sale-label {
         position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.5);
+        top: 10px;
+        left: 10px;
+        background-color: red;
         color: #fff;
-        border: none;
-        padding: 10px;
-        font-size: 1.5em;
-        cursor: pointer;
-        z-index: 10;
+        padding: 5px;
+        font-weight: bold;
+        border-radius: 5px;
       }
 
-      .prev {
+      /* Hiển thị % sale */
+      /* .product-card__sale-label::after {
+        content: attr(data-sale);
+        font-size: 0.9rem;
+        margin-left: 5px;
+        font-weight: normal;
+      } */
+
+      .product-card__color-options {
+        display: flex;
+        gap: 5px;
+        position: absolute;
+        bottom: 10px;
         left: 10px;
       }
 
-      .next {
-        right: 10px;
+      .product-card__color {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid #fff;
+      }
+
+      .product-card__info {
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .product-card__title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .product-card__price {
+        font-size: 1.1rem;
+        color: #e63946;
+        margin-bottom: 1rem;
+      }
+
+      .product-card__progress {
+        width: 100%;
+        height: 5px;
+        background-color: #ddd;
+        border-radius: 5px;
+      }
+
+      .product-card__progress-bar {
+        height: 100%;
+        background-color: #4caf50;
+        border-radius: 5px;
+      }
+
+      .home__see-all-btn {
+        display: block;
+        margin: 2rem auto;
+        padding: 0.8rem 1.5rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .home__see-all-btn:hover {
+        background-color: #0056b3;
       }
     </style>
   </head>
   <body>
-    <div class="slider-container">
-      <div class="slider">
-        <img class="slide" src="slider-mb-1.jpg" alt="" />
-        <img class="slide" src="slider-mb-2.jpg" alt="" />
-        <img class="slide" src="slider-mb-3.jpg" alt="" />
+    <!-- Section: Flash Sale -->
+    <section class="home__flash-sale">
+      <h2 class="home__section-title">🔥 Sản phẩm Flash Sale 🔥</h2>
+      <div class="product-list product-list--sale">
+        <div class="product-card product-card--sale">
+          <div class="product-card__image-wrapper">
+            <img src="src/public/img/sale1-gray.jpg" alt="Sản phẩm 1" class="product-card__image" data-color="red" data-product-id="sale1" />
+            <div class="product-card__sale-label" data-sale="40%"></div>
+            <div class="product-card__color-options">
+              <span class="product-card__color" data-color="gray" style="background-color: gray"></span>
+              <span class="product-card__color" data-color="red" style="background-color: red"></span>
+            </div>
+          </div>
+          <div class="product-card__info">
+            <h3 class="product-card__title">Sản phẩm 1</h3>
+            <p class="product-card__price">500,000 VND</p>
+            <div class="product-card__progress">
+              <div class="product-card__progress-bar" style="width: 75%" data-progress="75"></div>
+            </div>
+          </div>
+        </div>
+        <!-- More sale products here -->
       </div>
-      <button class="prev">❮</button>
-      <button class="next">❯</button>
-    </div>
+    </section>
 
+    <!-- Section: Regular Products -->
+    <section class="home__regular-products">
+      <h2 class="home__section-title">Sản phẩm thông thường</h2>
+      <div class="product-list">
+        <!-- Regular products here -->
+      </div>
+      <button class="home__see-all-btn">Xem tất cả</button>
+    </section>
     <script>
-      const slider = document.querySelector(".slider");
-      const slides = document.querySelectorAll(".slide");
-      const prevBtn = document.querySelector(".prev");
-      const nextBtn = document.querySelector(".next");
+      // Đổi ảnh khi hover vào màu
+      document.querySelectorAll(".product-card__color").forEach((colorOption) => {
+        colorOption.addEventListener("mouseenter", (e) => {
+          const color = e.target.dataset.color;
+          const productCard = e.target.closest(".product-card");
+          const productImage = productCard.querySelector(".product-card__image");
+          const productId = productCard.querySelector(".product-card__image").dataset.productId;
 
-      let startX = 0;
-      let endX = 0;
-      let currentIndex = 0;
-      const totalSlides = slides.length;
-      let autoPlayInterval;
+          // Đổi ảnh khi hover, sử dụng màu sắc từ thuộc tính data-color
+          productImage.src = `src/public/img/${productId}-${color}.jpg`; // Linh hoạt với các tên ảnh
+        });
 
-      // Start autoplay
-      function startAutoPlay() {
-        autoPlayInterval = setInterval(nextSlide, 3000);
-      }
-
-      // Stop autoplay
-      function stopAutoPlay() {
-        clearInterval(autoPlayInterval);
-      }
-
-      // Go to the previous slide
-      function prevSlide() {
-        stopAutoPlay();
-        if (currentIndex === 0) {
-          slider.style.transition = "none";
-          currentIndex = totalSlides - 1;
-        } else {
-          updateTransition();
-          currentIndex--;
-        }
-        updateSlider();
-        startAutoPlay();
-      }
-
-      // Go to the next slide
-      function nextSlide() {
-        stopAutoPlay();
-        if (currentIndex === totalSlides - 1) {
-          slider.style.transition = "none";
-          currentIndex = 0;
-        } else {
-          updateTransition();
-          currentIndex++;
-        }
-        updateSlider();
-        startAutoPlay();
-      }
-
-      // Update transition effect
-      function updateTransition() {
-        slider.style.transition = "transform 0.5s ease-in-out";
-      }
-
-      // Update slider position
-      function updateSlider() {
-        const offset = -currentIndex * 100;
-        slider.style.transform = `translateX(${offset}%)`;
-      }
-
-      // Prevent dragging images
-      slides.forEach((image) => {
-        image.addEventListener("dragstart", (e) => e.preventDefault());
+        colorOption.addEventListener("mouseleave", (e) => {
+          // Không làm gì khi rời khỏi hover, ảnh sẽ giữ nguyên màu đã chọn
+          // Không thay đổi ảnh mặc định
+        });
       });
 
-      // Handle touch start
-      function handleTouchStart(e) {
-        startX = e.changedTouches[0].screenX;
-      }
+      // Cập nhật % sale và thanh tiến độ từ dữ liệu server (ví dụ)
+      document.querySelectorAll(".product-card").forEach((productCard) => {
+        const salePercentage = productCard.querySelector(".product-card__sale-label");
+        const progressBar = productCard.querySelector(".product-card__progress-bar");
 
-      // Handle touch end
-      function handleTouchEnd(e) {
-        endX = e.changedTouches[0].screenX;
-        const swipeDistance = startX - endX;
+        // Lấy dữ liệu sale và tiến độ (thực tế sẽ cập nhật từ server)
+        const sale = salePercentage.getAttribute("data-sale"); // Ví dụ: '20%'
+        const progress = progressBar.getAttribute("data-progress"); // Ví dụ: '75'
 
-        if (swipeDistance > 50) {
-          stopAutoPlay();
-          nextSlide(); // Swipe left
-        } else if (swipeDistance < -50) {
-          stopAutoPlay();
-          prevSlide(); // Swipe right
-        }
-      }
+        // Cập nhật lại % sale
+        salePercentage.textContent = `Sale ${sale}`;
 
-      let isMouseDown = false;
-      let mouseStartX = 0;
-
-      function handleMouseDown(e) {
-        isMouseDown = true;
-        mouseStartX = e.clientX;
-        stopAutoPlay();
-      }
-
-      function handleMouseUp(e) {
-        if (isMouseDown) {
-          const mouseEndX = e.clientX;
-          if (mouseStartX > mouseEndX + 50) {
-            stopAutoPlay();
-            nextSlide();
-          } else if (mouseStartX < mouseEndX - 50) {
-            stopAutoPlay();
-            prevSlide();
-          }
-          isMouseDown = false;
-          // startAutoPlay();
-        }
-      }
-
-      // Event listeners
-      prevBtn.addEventListener("click", prevSlide);
-      nextBtn.addEventListener("click", nextSlide);
-      slider.addEventListener("mousedown", handleMouseDown);
-      slider.addEventListener("mouseup", handleMouseUp);
-      slider.addEventListener("touchstart", handleTouchStart);
-      slider.addEventListener("touchend", handleTouchEnd);
-      // Auto-play restart on mouse up or touch end
-      // slider.addEventListener("mouseup", startAutoPlay);
-      // slider.addEventListener("touchend", startAutoPlay);
-
-      // Initialize autoplay when DOM is ready
-      // document.addEventListener("DOMContentLoaded", startAutoPlay);
+        // Cập nhật lại thanh tiến độ
+        progressBar.style.width = `${progress}%`;
+      });
     </script>
   </body>
 </html>

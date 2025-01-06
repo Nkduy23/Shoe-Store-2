@@ -1,17 +1,19 @@
-// Thời gian kết thúc  1/1/2025, 12:00 PM)
-const saleEndTime = new Date("2025-01-01T12:00:00").getTime();
+// Thời gian kết thúc (1/1/2025, 12:00 PM)
+const saleEndTime = new Date("2025-01-05T12:00:00").getTime();
 
+// Lấy các phần tử hiển thị thời gian
 const daysElem = document.getElementById("days");
 const hoursElem = document.getElementById("hours");
 const minutesElem = document.getElementById("minutes");
 const secondsElem = document.getElementById("seconds");
 
+// Hàm cập nhật bộ đếm ngược
 function updateCountdown() {
   const now = new Date().getTime();
   const remainingTime = saleEndTime - now;
 
   if (remainingTime <= 0) {
-    clearInterval(countdownInterval);
+    clearInterval(countdownInterval); // Dừng bộ đếm
     document.querySelector(".flash-sale__subtitle").textContent = "Khuyến mãi đã kết thúc!";
     return;
   }
@@ -21,13 +23,15 @@ function updateCountdown() {
   const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
+  // Cập nhật nội dung cho các phần tử hiển thị thời gian
   daysElem.textContent = days.toString().padStart(2, "0");
   hoursElem.textContent = hours.toString().padStart(2, "0");
   minutesElem.textContent = minutes.toString().padStart(2, "0");
   secondsElem.textContent = seconds.toString().padStart(2, "0");
 }
-// Gọi hàm mỗi giây
+
+// Gọi hàm mỗi giây để cập nhật thời gian
 const countdownInterval = setInterval(updateCountdown, 1000);
 
-// Chạy ngay khi tải trang
+// Gọi ngay khi tải trang để cập nhật lần đầu
 updateCountdown();

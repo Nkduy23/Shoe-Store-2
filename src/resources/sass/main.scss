@@ -5,10 +5,17 @@
 // config
 @use "config/config";
 
+// account
+@use "layout/account";
+
 // layout
 @use "layout/navbar";
 @use "layout/slider";
 @use "layout/flash-sale";
+@use "layout/home";
+@use "layout/products-home";
+@use "layout/manageProduct";
+@use "layout/footer";
 
 // utilities
 @use "utilities/index" as *;

@@ -1,1 +1,64 @@
-<p class="text">Hello tao là duy</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product List</title>
+</head>
+<body>
+{{!-- Section: Flash Sale --}}
+<h1>🔥 Sản phẩm Flash Sale 🔥</h1>
+<div class="product-list product-list--sale">
+  {{#each saleProducts}}
+    <div class="product-card product-card--sale">
+      <div class="product-card__image-wrapper">
+        {{#if image}}
+          <img src="{{image}}" alt="{{name}}" class="product-card__image" data-color="{{color}}" data-product-id="{{_id}}" />
+        {{/if}}
+        <div class="product-card__sale-label" data-sale="{{sale}}"></div>
+        <div class="product-card__color-options">
+          {{#each colors}}
+            <span class="product-card__color" data-color="{{this}}" style="background-color: {{this}}"></span>
+          {{/each}}
+        </div>
+      </div>
+      <div class="product-card__info">
+        <h3 class="product-card__title">{{name}}</h3>
+        <p class="product-card__price">{{price}} VND</p>
+        <div class="product-card__progress">
+          <div class="product-card__progress-bar" style="width: {{progress}}%" data-progress="{{progress}}"></div>
+        </div>
+        <form action="/cart/add/{{_id}}" method="POST">
+          <label for="quantity-{{_id}}">Quantity:</label>
+          <input type="number" id="quantity-{{_id}}" name="quantity" min="1" value="1">
+          <button type="submit">Buy</button>
+        </form>
+      </div>
+    </div>
+  {{/each}}
+</div>
+
+{{!-- Section: Regular Products --}}
+<h1>Sản phẩm thông thường</h1>
+<div class="product-list">
+  {{#each regularProducts}}
+    <div class="product-card">
+      {{#if image}}
+        <img src="{{image}}" alt="{{name}}" class="product-card__image" />
+      {{/if}}
+      <div class="product-card__info">
+        <h3 class="product-card__title">{{name}}</h3>
+        <p class="product-card__price">{{price}} VND</p>
+        <form action="/cart/add/{{_id}}" method="POST">
+          <label for="quantity-{{_id}}">Quantity:</label>
+          <input type="number" id="quantity-{{_id}}" name="quantity" min="1" value="1">
+          <button type="submit">Buy</button>
+        </form>
+      </div>
+    </div>
+  {{/each}}
+</div>
+<button class="home__see-all-btn">Xem tất cả</button>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+// Đặt biến màu sắc
+$primary-color: #4caf50;
+$secondary-color: #f44336;
+$text-color: #333;
+$bg-color: #f9f9f9;
+$border-color: #ddd;
+
+.product-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: $text-color;
+    font-weight: bold;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+  }
+
+  input[type="file"] {
+    padding: 0.4rem;
+  }
+
+  button {
+    background-color: $primary-color;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  // Màu cho trạng thái sale
+  select {
+    option[value="yes"] {
+      color: $primary-color;
+    }
+
+    option[value="no"] {
+      color: $secondary-color;
+    }
+  }
+}

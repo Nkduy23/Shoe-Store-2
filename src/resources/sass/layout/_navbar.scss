@@ -46,7 +46,6 @@ header {
     &__dropdown-menu {
       transform: translateY(-10px);
       transition: transform 0.3s ease-in-out;
-      position: absolute;
       min-width: 18rem;
       border: 1px solid #ccc;
       background-color: #fff;
@@ -62,10 +61,6 @@ header {
       }
     }
 
-    &__search-form {
-      position: relative;
-    }
-    
     &__search-input {
       width: 100%;
       padding: 0.5rem;
@@ -74,14 +69,15 @@ header {
     }
 
     &__search-button {
-      position: absolute;
       top: 50%;
       right: -10px;
       transform: translateY(-50%);
     }
 
-    &__login {
-      margin-right: 1rem;
+    &__footer {
+      a {
+        margin-right: 1rem;
+      }
     }
     
     // icon bar

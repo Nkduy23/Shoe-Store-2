@@ -1,0 +1,52 @@
+<main class="manage-products">
+  <h1 class="manage-products__title">Manage Products</h1>
+  {{#if products.length}}
+    <table class="manage-products__table">
+      <thead>
+        <tr>
+          <th class="manage-products__header">Name</th>
+          <th class="manage-products__header">Description</th>
+          <th class="manage-products__header">Price</th>
+          <th class="manage-products__header">Sale</th>
+          <th class="manage-products__header">Colors</th>
+          <th class="manage-products__header">Image</th>
+          <th class="manage-products__header">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+          <tr class="manage-products__row">
+            <td class="manage-products__cell">{{this.name}}</td>
+            <td class="manage-products__cell">{{this.description}}</td>
+            <td class="manage-products__cell">${{this.price}}</td>
+            <td class="manage-products__cell">{{#if this.isSale}}Yes{{else}}No{{/if}}</td>
+            <td class="manage-products__cell">
+              {{#each this.colors}}
+                <span class="manage-products__color" style="background-color: {{this}};"> </span>
+              {{/each}}
+            </td>
+            <td class="manage-products__cell">
+              <img src="/{{this.image}}" alt="Product Image" class="manage-products__image" />
+            </td>
+            <td class="manage-products__cell">
+              <a href="/editProduct/{{this._id}}" class="manage-products__action">Edit</a>
+              <a href="/deleteProduct/{{this._id}}" class="manage-products__action manage-products__action--delete">Delete</a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <script>
+      document.querySelectorAll('.manage-products__action--delete').forEach(link => {
+        link.addEventListener('click', function (event) {
+          const isConfirmed = confirm('Bạn có chắc muốn xóa sản phẩm này không?');
+          if (!isConfirmed) {
+            event.preventDefault();
+          }
+        });
+      });
+    </script>
+  {{else}}
+    <p class="manage-products__empty">No products available. Please add some products.</p>
+  {{/if}}
+</main>

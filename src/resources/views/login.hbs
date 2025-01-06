@@ -1,19 +1,18 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Đăng Nhập</h1>
-    <form action="/login" method="POST">
-      <label for="username">Tài khoản:</label>
-      <input type="text" name="username" required />
+{{#if errorMessage}}
+  <div class="error-message">{{errorMessage}}</div>
+{{/if}}
+<h1>Đăng Nhập</h1>
+<form class="account-form" action="/login" method="POST">
+  <label for="username">Tài khoản:</label>
+  <input type="text" name="username" required>
 
-      <label for="password">Mật khẩu:</label>
-      <input type="password" name="password" required />
+  <label for="password">Mật khẩu:</label>
+  <input type="password" name="password" required>
 
-      <button type="submit">Đăng nhập</button>
-    </form>
-  </body>
-</html>
+  <button type="submit">Đăng nhập</button>
+</form>
+
+<!-- Đăng nhập bằng Google -->
+<a href="/auth/google">
+  <button type="button">Đăng nhập bằng Google</button>
+</a>

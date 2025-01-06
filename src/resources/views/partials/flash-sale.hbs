@@ -1,22 +1,26 @@
-<!-- flash sale -->
-<div class="flash-sale">
-  <h1 class="flash-sale__title">🔥 F<i class="fa-solid fa-bolt-lightning"></i>ash Sale! 🔥</h1>
-  <p class="flash-sale__subtitle">Nhanh lên! Thời gian kết thúc vào:</p>
-  <div class="flash-sale__timer">
+<!-- Flash Sale Section -->
+<div class="flash-sale" role="region" aria-labelledby="flashSaleTitle">
+  <h1 id="flashSaleTitle" class="flash-sale__title">
+    🔥 F<i class="fa-solid fa-bolt-lightning"></i>ash Sale! 🔥
+  </h1>
+  <p class="flash-sale__subtitle">
+    Nhanh lên! Thời gian kết thúc vào:
+  </p>
+  <div class="flash-sale__timer" aria-live="countdown">
     <div class="timer-box">
-      <span id="days">00</span>
+      <span id="days" class="timer-value">00</span>
       <span class="label">Days</span>
     </div>
     <div class="timer-box">
-      <span id="hours">00</span>
+      <span id="hours" class="timer-value">00</span>
       <span class="label">Hours</span>
     </div>
     <div class="timer-box">
-      <span id="minutes">00</span>
+      <span id="minutes" class="timer-value">00</span>
       <span class="label">Minutes</span>
     </div>
     <div class="timer-box">
-      <span id="seconds">00</span>
+      <span id="seconds" class="timer-value">00</span>
       <span class="label">Seconds</span>
     </div>
   </div>

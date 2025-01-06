@@ -31,7 +31,7 @@
             <a href="#" class="navbar__link dropdown-toggle" id="dropdownMenu-1" aria-expanded="false">
               Giày Nam
             </a>
-            <ul class="navbar__dropdown-menu visibility-hidden z-index-2" aria-labelledby="dropdownMenu" role="menu">
+            <ul class="navbar__dropdown-menu position-absolute visibility-hidden z-index-2" aria-labelledby="dropdownMenu" role="menu">
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Thể Thao</a></li>
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Đi Chơi</a></li>
               {{! <li role="separator"><hr class="navbar__dropdown-divider" /></li> }}
@@ -42,7 +42,7 @@
             <a href="#" class="navbar__link dropdown-toggle" id="dropdownMenu-2" aria-expanded="false">
               Giày Nữ
             </a>
-            <ul class="navbar__dropdown-menu visibility-hidden z-index-2" aria-labelledby="dropdownMenu" role="menu">
+            <ul class="navbar__dropdown-menu position-absolute visibility-hidden z-index-2" aria-labelledby="dropdownMenu" role="menu">
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Thể Thao</a></li>
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Boot</a></li>
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Something else here</a></li>
@@ -52,7 +52,7 @@
             <a href="#" class="navbar__link dropdown-toggle" id="dropdownMenu-3" aria-expanded="false">
               Giày Cặp
             </a>
-            <ul class="navbar__dropdown-menu visibility-hidden z-index-2" aria-labelledby="dropdownMenu" role="menu">
+            <ul class="navbar__dropdown-menu position-absolute visibility-hidden z-index-2" aria-labelledby="dropdownMenu" role="menu">
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Cute</a></li>
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Boot</a></li>
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Something else here</a></li>
@@ -62,7 +62,7 @@
             <a href="#" class="navbar__link dropdown-toggle" id="dropdownMenu-4" aria-expanded="false">
               Balo-Túi
             </a>
-            <ul class="navbar__dropdown-menu visibility-hidden z-index-2" aria-labelledby="dropdownMenu" role="menu">
+            <ul class="navbar__dropdown-menu position-absolute visibility-hidden z-index-2" aria-labelledby="dropdownMenu" role="menu">
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Balo Laptop, Du Lịch, Thời Trang</a></li>
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Túi Đeo Chéo</a></li>
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Something else here</a></li>
@@ -72,7 +72,7 @@
             <a href="#" class="navbar__link dropdown-toggle" id="dropdownMenu-5" aria-expanded="false">
               Phụ Kiện
             </a>
-            <ul class="navbar__dropdown-menu visibility-hidden z-index-2" aria-labelledby="dropdownMenu" role="menu">
+            <ul class="navbar__dropdown-menu position-absolute visibility-hidden z-index-2" aria-labelledby="dropdownMenu" role="menu">
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Vớ</a></li>
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Chai Xịt Giày</a></li>
               <li class="navbar__dropdown-item" role="menuitem"><a class="navbar__dropdown-link d-block" href="#">Something else here</a></li>
@@ -83,21 +83,35 @@
 
       <!-- Search Form -->
       <div class="navbar__search">
-        <form class="navbar__search-form" role="search">
+        <form class="navbar__search-form position-relative" role="search">
           <input type="text" class="navbar__search-input" placeholder="Search..." aria-label="Search" />
-          <button type="submit" class="navbar__search-button btn-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button type="submit" class="navbar__search-button position-absolute btn-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
         <button type="button" class="navbar__search-close btn-icon d-none" aria-controls="Search" aria-expanded="false" aria-label="Close menu">
           <span class="navbar__close-icon"><i class="fa-solid fa-xmark"></i></span>
         </button>
       </div>
-
-      <!-- Footer Links -->
       <div class="navbar__footer d-flex align-items-center">
         <button type="submit" class="navbar__search-button--mobile d-none btn-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
-        <a href="/login" class="navbar__login"><i class="fa-solid fa-user"></i></a>
-        <a href="/register" class="navbar__register"><i class="fa-solid fa-cart-shopping"></i></a>
+        {{#if user}}
+          Welcome,
+          {{user}}
+          ({{role}})
+          {{#ifCond role "==" "admin"}}
+            <!-- Nếu là admin -->
+            <a href="/addProduct" class="navbar__add-product"><i class="fa-solid fa-plus"></i></a>
+            <a href="/manageProducts" class="navbar__add-product"><i class="fa-solid fa-shop"></i></a>
+          {{/ifCond}}
+          <a href="/logout" class="navbar__add-product"> <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+          <a href="/cart" class="navbar__cart"><i class="fa-solid fa-cart-shopping"></i></a>
+        {{else}}
+          <a href="/login" class="navbar__login"><i class="fa-solid fa-user"></i></a>
+          <a href="/register" class="navbar__add-product"><i class="fa-solid fa-user-plus"></i></a>
+        {{/if}}
       </div>
+
+      <!-- Footer Links -->
+
     </div>
   </div>
 </nav>
